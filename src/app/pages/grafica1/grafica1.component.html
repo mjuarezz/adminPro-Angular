@@ -1,1 +1,38 @@
-<p>grafica1 works!</p>
+<div class="row">
+    <div class="col-6">
+
+        <app-dona   titulo="Businness Sales"
+                    [labels]="labels1"
+                    [colors]="colors1"
+                    [data] = "data1">
+        </app-dona>
+        
+    </div>
+    <div class="col-6">
+
+        <app-dona [labels]="labels2"
+                  [colors]="colors2"
+                  [data] = "data2">
+        </app-dona>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+
+        <app-dona   titulo="Marketing campain"
+                    [labels]="labels3"
+                    [colors]="colors3"
+                    [data] = "data3">
+        </app-dona>
+        
+    </div>
+    <div class="col-6">
+
+        <app-dona   titulo="Weather Days"
+                    [labels]="labels4"
+                    [colors]="colors4"
+                    [data] = "data4">
+        </app-dona>
+        
+    </div>
+</div>

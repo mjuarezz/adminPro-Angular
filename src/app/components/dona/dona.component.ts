@@ -9,7 +9,8 @@ import { ChartData } from 'chart.js';
 })
 export class DonaComponent implements OnInit{
   @Input() titulo: string = 'Sin titulo';
-  @Input() labels: string[] = [ 'Sin etiquetaA','Sin etiquetaB','Sin etiquetaC'];
+
+  @Input('labels') doughnutChartLabels: string[] = [ 'Label1', 'Label2', 'Label3' ];
   @Input() data: number[] = [ 400,100,50 ];
   @Input() colors: string[] = [ '#7DCBF0','#E3B13D','#736AEF' ];
 
@@ -20,8 +21,7 @@ export class DonaComponent implements OnInit{
   };
   
   ngOnInit(): void {
-    console.log(this.labels);
-    this.doughnutChartData.labels = this.labels;
+    this.doughnutChartData.labels = this.doughnutChartLabels;
     this.doughnutChartData.datasets.push( 
         { data: this.data, 
           backgroundColor: this.colors

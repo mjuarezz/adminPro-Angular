@@ -25,7 +25,14 @@ export class SidebarComponent {
     this.router.navigateByUrl('/login');
   }
 
+  get getUrlImg() {
+    return this.usuarioService.usuario.imagenUrl;
+  }
 
+
+  get getNombre() {
+    return this.usuarioService.usuario.nombre;
+  }
 
 
 }

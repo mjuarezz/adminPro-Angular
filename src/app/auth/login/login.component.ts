@@ -54,8 +54,7 @@ export class LoginComponent implements AfterViewInit{
   }
 
   login() {
-    //this.router.navigateByUrl('/')
-  
+
     if( this.miFormulario.invalid) {
       return
     }

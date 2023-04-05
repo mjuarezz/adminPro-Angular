@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { delay } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
 
@@ -6,6 +7,7 @@ import { BusquedasService } from 'src/app/services/busquedas.service';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from 'src/app/models/usuario.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-usuarios',
@@ -13,19 +15,34 @@ import { Usuario } from 'src/app/models/usuario.model';
   styles: [
   ]
 })
-export class UsuariosComponent implements OnInit{
+export class UsuariosComponent implements OnInit, OnDestroy {
 
   public totalRegistros: number = 0;
   public registros: Usuario[] = [];
   public registrosTmp : Usuario[] = [];
+
+  public imgSubs!: Subscription;
   public desde = 0;
   public cargando: boolean = true;
+
 
  constructor( private usuarioService: UsuarioService,
               private busquedaService: BusquedasService,
               private modalImagenService: ModalImagenService ) {}
+
+
+  ngOnDestroy(): void {
+    this.imgSubs.unsubscribe();
+  }
+
   ngOnInit(): void {
     this.cargarUsuarios();
+    // Emitter para monitorear cuando en el modal cambie la imagen
+    this.imgSubs = this.modalImagenService.nuevaImagen   
+      .pipe( delay(100) ) // No mostraba la imagen
+      .subscribe( img => {
+          this.cargarUsuarios();
+      })
   }
 
   cambiarPagina( valor: number ) {
@@ -116,8 +133,7 @@ export class UsuariosComponent implements OnInit{
 
 
   abrirModal( usuario : Usuario ) {
-    console.log(usuario);
-    this.modalImagenService.abrirModal();
+    this.modalImagenService.abrirModal( 'usuarios', usuario.uid, usuario.img );
 
   }
 
